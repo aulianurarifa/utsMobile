@@ -1,6 +1,6 @@
 # Lovely Dashboard App
 
-Lovely Dashboard App adalah aplikasi Flutter bertema  yang menyajikan berbagai halaman seperti dashboard, biodata, cuaca, kalkulator, berita, dan kontak. Proyek ini berfokus pada nuansa visual retro dengan kombinasi gradasi pastel, font pixel/rounded, serta stiker-stiker dekoratif.
+Lovely Dashboard App adalah aplikasi Flutter bertema Y2K yang menyajikan berbagai halaman seperti dashboard, biodata, cuaca, kalkulator, berita, dan kontak. Proyek ini berfokus pada nuansa visual retro dengan kombinasi gradasi pastel, font pixel/rounded, serta stiker-stiker dekoratif.
 
 ## Fitur Utama
 
@@ -8,6 +8,15 @@ Lovely Dashboard App adalah aplikasi Flutter bertema  yang menyajikan berbagai h
 - **Biodata Dinamis:** Data profil dapat diedit langsung dari UI melalui form bottom sheet dan tersimpan di state aplikasi.
 - **Halaman Cuaca, Berita, Kalkulator, Kontak:** Setiap halaman menggunakan styling konsisten bertema pastel-pixel.
 - **Responsif & Scrollable:** Sebagian besar halaman dibangun dengan `SingleChildScrollView` untuk kenyamanan pengguna di berbagai ukuran layar.
+
+## Deskripsi Halaman
+
+- **Dashboard Home:** Halaman utama dengan sapaan personal, ringkasan jadwal sholat yang dapat diperbarui via [_MyQuran API_](https://api.myquran.com/v2/), serta todo list  lengkap dengan tombol tambah cepat.
+- **Biodata:** Menampilkan identitaas , daftar detail pribadi, kontak, hobi, serta quote favorit. Terdapat tombol `Edit` yang membuka bottom sheet untuk memperbarui data secara langsung dari UI.
+- **Cuaca:** Menyajikan informasi prakiraan cuaca dengan animasi ikon (cerah, berawan, hujan, petir) dan gradien lembut yang diambil dari [_BMKG Cuaca API_](https://ibnux.github.io/BMKG-importer/).
+- **Berita:** Daftar kabar terkini yang kini dilengkapi thumbnail gambar, badge sumber, waktu relatif, serta aksi bookmark.
+- **Kalkulator:** Kalkulator sederhana dengan tombol warna-warni dan typografi pixel.
+- **Kontak:** Kartu informasi kontak penting lengkap dengan tombol aksi cepat dan dekorasi stiker.
 
 ## Prasyarat
 
@@ -46,5 +55,16 @@ Perintah di atas akan mengambil dependency yang diperlukan lalu menjalankan apli
 - Proyek menggunakan font Google VT323 dan Fredoka untuk memberikan nuansa retro-futuristic.
 - Sebagian widget mengadopsi custom painter serta efek blur/gradient untuk menjaga konsistensi tema.
 - Bila Anda melakukan perubahan besar, jalankan `flutter analyze` dan `flutter test` (jika tersedia) guna memastikan tidak ada regresi.
+
+## Cuplikan Antarmuka
+
+| Dashboard 1 | Dashboard 2 | Biodata | Edit Biodata |
+|-------------|-------------|---------|--------------|
+| ![Dashboard 1](assets/images/Dashboard1.png) | ![Dashboard 2](assets/images/Dashboard2.png) | ![Biodata](assets/images/Biodata.png) | ![Edit Biodata](assets/images/Edit%20Biodata.png) |
+
+| Cuaca | Berita | Kalkulator | Kontak |
+|-------|--------|------------|--------|
+| ![Cuaca](assets/images/cuaca.png) | ![Berita](assets/images/berita.png) | ![Kalkulator](assets/images/kalkulator.png) | ![Kontak](assets/images/kontak.png) |
+
 
 

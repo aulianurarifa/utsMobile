@@ -7,12 +7,14 @@ class News {
     required this.source,
     required this.time,
     required this.icon,
+    required this.imageUrl,
   });
 
   final String title;
   final String source;
   final String time;
   final IconData icon;
+  final String imageUrl;
 }
 
 const LinearGradient _newsCardGradient = LinearGradient(
@@ -32,6 +34,7 @@ class BeritaPage extends StatelessWidget {
         source: 'The Verge',
         time: '2023-11-06T09:15:00Z',
         icon: Icons.smart_toy_outlined,
+        imageUrl: 'https://picsum.photos/seed/ai/640/360',
       ),
       const News(
         title:
@@ -39,54 +42,63 @@ class BeritaPage extends StatelessWidget {
         source: 'CNN',
         time: '2023-11-06T12:20:00Z',
         icon: Icons.pets_outlined,
+        imageUrl: 'https://picsum.photos/seed/panda/640/360',
       ),
       const News(
         title: 'New breakthrough in quantum computing announced by tech giants',
         source: 'TechCrunch',
         time: '2023-11-06T08:30:00Z',
         icon: Icons.memory_outlined,
+        imageUrl: 'https://picsum.photos/seed/quantum/640/360',
       ),
       const News(
         title: 'Climate summit reaches historic agreement on emissions',
         source: 'BBC News',
         time: '2023-11-05T20:45:00Z',
         icon: Icons.public_outlined,
+        imageUrl: 'https://picsum.photos/seed/climate/640/360',
       ),
       const News(
         title: 'Major sports tournament finals draw record viewership',
         source: 'ESPN',
         time: '2023-11-05T18:00:00Z',
         icon: Icons.emoji_events_outlined,
+        imageUrl: 'https://picsum.photos/seed/sports/640/360',
       ),
       const News(
         title: 'Stock markets hit new highs amid economic optimism',
         source: 'Bloomberg',
         time: '2023-11-05T14:20:00Z',
         icon: Icons.trending_up,
+        imageUrl: 'https://picsum.photos/seed/stocks/640/360',
       ),
       const News(
         title: 'Revolutionary medical treatment shows promising results',
         source: 'Medical News',
         time: '2023-11-05T10:15:00Z',
         icon: Icons.healing_outlined,
+        imageUrl: 'https://picsum.photos/seed/medical/640/360',
       ),
       const News(
         title: 'Space agency announces plans for Mars mission',
         source: 'Space News',
         time: '2023-11-04T22:30:00Z',
         icon: Icons.rocket_launch_outlined,
+        imageUrl: 'https://picsum.photos/seed/space/640/360',
       ),
       const News(
         title: 'Electric vehicle sales surge in global markets',
         source: 'Auto News',
         time: '2023-11-04T16:45:00Z',
         icon: Icons.ev_station_outlined,
+        imageUrl: 'https://picsum.photos/seed/ev/640/360',
       ),
       const News(
         title: 'New smartphone with innovative features launched',
         source: 'Tech Review',
         time: '2023-11-04T13:00:00Z',
         icon: Icons.phone_android_outlined,
+        imageUrl: 'https://picsum.photos/seed/smartphone/640/360',
       ),
     ];
 
@@ -322,23 +334,7 @@ class _NewsCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    width: 82,
-                    height: 82,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.82),
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(
-                        color: const Color(0xFFB9B4D8),
-                        width: 1.2,
-                      ),
-                    ),
-                    child: Icon(
-                      news.icon,
-                      size: 42,
-                      color: const Color(0xFF5E73D4),
-                    ),
-                  ),
+                  _NewsThumbnail(news: news),
                   const SizedBox(width: 18),
                   Expanded(
                     child: Column(
@@ -383,6 +379,93 @@ class _NewsCard extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _NewsThumbnail extends StatelessWidget {
+  const _NewsThumbnail({required this.news});
+
+  final News news;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 88,
+      height: 88,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.82),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: const Color(0xFFB9B4D8), width: 1.2),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(18),
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            Positioned.fill(
+              child: Image.network(
+                news.imageUrl,
+                fit: BoxFit.cover,
+                loadingBuilder:
+                    (
+                      BuildContext context,
+                      Widget child,
+                      ImageChunkEvent? progress,
+                    ) {
+                      if (progress == null) {
+                        return child;
+                      }
+                      return Center(
+                        child: SizedBox(
+                          width: 22,
+                          height: 22,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              const Color(0xFF6E78DA),
+                            ),
+                            value: progress.expectedTotalBytes != null
+                                ? progress.cumulativeBytesLoaded /
+                                      progress.expectedTotalBytes!
+                                : null,
+                          ),
+                        ),
+                      );
+                    },
+                errorBuilder:
+                    (BuildContext context, Object error, StackTrace? stack) {
+                      return Center(
+                        child: Icon(
+                          news.icon,
+                          size: 36,
+                          color: const Color(0xFF5E73D4),
+                        ),
+                      );
+                    },
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 26,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: <Color>[
+                      const Color(0xFF2F2640).withValues(alpha: 0.55),
+                      Colors.transparent,
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
